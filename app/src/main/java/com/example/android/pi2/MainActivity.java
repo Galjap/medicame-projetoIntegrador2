@@ -13,9 +13,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
+    FirebaseAuth auth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,11 +30,19 @@ public class MainActivity extends AppCompatActivity {
                 login();
             }
         });
+
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        if (user != null){
+            Intent it = new Intent(MainActivity.this, Redirect.class);
+            startActivity(it);
+            finish();
+        }
     }
 
     private void login(){
 
-        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth = FirebaseAuth.getInstance();
 
         EditText edtEmail = findViewById(R.id.edtEmail);
         EditText edtPassword = findViewById(R.id.edtPassword);
