@@ -30,6 +30,8 @@ public class Redirect extends AppCompatActivity {
         edtSexo = findViewById(R.id.edtSexo);
 
         database = FirebaseDatabase.getInstance();
+        auth = FirebaseAuth.getInstance();
+
         Button btn = findViewById(R.id.btnGravar);
 
         btn.setOnClickListener(new View.OnClickListener() {
@@ -46,14 +48,17 @@ public class Redirect extends AppCompatActivity {
         String dataNascimento = edtDataNascimento.getText().toString();
         String sexo = edtSexo.getText().toString();
 
-        FirebaseUser user = auth.getCurrentUser();
         auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
 
 
+        String uid = user.getUid();
 
+        DatabaseReference alunos = database.getReference("/Alunos");
+        alunos.child(uid).child("Nome").setValue(nome);
+        alunos.child(uid).child("Data Nascimento").setValue(dataNascimento);
+        alunos.child(uid).child("Sexo").setValue(sexo);
 
-        DatabaseReference alunos = database.getReference();
-        alunos.child("nome qualquer").setValue("1111");
 
 
     }
