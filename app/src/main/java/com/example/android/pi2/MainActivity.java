@@ -31,6 +31,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button c = findViewById(R.id.btnCadastro);
+        c.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cadastro();
+            }
+        });
+
         auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
         if (user != null){
@@ -40,9 +48,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void cadastro(){
+        startActivity(new Intent(MainActivity.this, Cadastro.class));
+    }
+
+
+
     private void login(){
 
         auth = FirebaseAuth.getInstance();
+
+
 
         EditText edtEmail = findViewById(R.id.edtEmail);
         EditText edtPassword = findViewById(R.id.edtPassword);
